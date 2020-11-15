@@ -20,16 +20,18 @@
             <br>
               <div class="form-group">
                 <label for="inputEmail3" class="col-sm-2 control-label">Correo electrónico</label>
-                <div class="col-sm-6">
+                <div class="col-sm-6 form-group ">
                   <input type="email" class="form-control" id="inputEmail3" name="usuario" placeholder="Email">
                   <?php echo form_error('usuario'); ?>
                 </div>
               </div>
               <div class="form-group">
                 <label for="inputPassword3" class="col-sm-2 control-label">Contraseña</label>
-                <div class="col-sm-6">
-                  <input type="password" class="form-control" id="inputPassword3" name="contrasena" placeholder="Password">
-                 <?php echo form_error('contrasena'); ?>
+                <div class="form-inline">
+                      <input type="password" class="form-control" id="password" name="contrasena" placeholder="Password">
+                      <?php echo form_error('contrasena'); ?>
+                          <button class="btn btn-success" type="button" onclick="mostrarContrasena()"> <span id="span"  class="glyphicon glyphicon-eye-open"></span></button>
+                  </div>
                  <?php
                  if($error){
                  ?>
@@ -41,7 +43,7 @@
                  <?php
                   }
                  ?>
-                </div>
+                
               </div>
               <?php
                // echo phpversion();
@@ -58,3 +60,19 @@
         
       </div>
       <hr>
+
+      <script>
+      //Funcion para mostrat y ocultar contraseña
+        function mostrarContrasena(){
+            var tipo = document.getElementById("password");
+            //var span = document.getElementById("span");
+            //alert(tipo);
+            if(tipo.type == "password"){
+                tipo.type = "text";
+                document.getElementById("span").className = "glyphicon glyphicon-eye-close";
+            }else{
+                tipo.type = "password";
+                document.getElementById("span").className = "glyphicon glyphicon-eye-open";
+            }
+        }
+</script>

@@ -1,4 +1,4 @@
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+﻿<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
   <ol class="breadcrumb">
   <li><a href="<?php echo base_url();?>index.php/proyecto/panel">Principal</a></li>
     <li class="active">Expedientes NNA</li>
@@ -136,11 +136,18 @@
         }
              ?>
              <tr>
-               <td class="<?php echo $etiqueta;?>">
-               <form method="post" action="vista_expediente_nino_integrantes">
-               <center><button type="button submit" class="btn btn-info" name="integrantes" value="<?php echo $e->id_expediente;?>">Ver integrantes</button></center>
-              </form>
-               </td>
+               <!-- td ver integrantes -->
+              <!-- el js, es el de maury -->
+              <td class="<?php echo $etiqueta;?>" id="equipoA">
+            
+                   
+            <!-- Muestra integrantes en otra vista....
+              <form method="post" action="vista_expediente_nino_integrantes">
+             <center><button type="button submit" class="btn btn-info" name="integrantes" value="<?php echo $e->id_expediente;?>">Ver integrantes</button></center>
+             </form>-->
+
+             <center><button class="btn btn-success" type="button" onclick="mostrarTrab(<?php echo $e->id_expediente;?>)" data-toggle="modal" data-target="#exampleModalCenter">Ver:  <span  class="glyphicon glyphicon-eye-open" ></span></button>
+        </td>   
                <td class="<?php echo $etiqueta;?>"><center>
                <input class="btn btn-warning" type="button" value="<?php echo $e->fk_num_equipo;?>">
               </center></td>
@@ -165,7 +172,25 @@
                $fecha_naci = $this->Modelo_proyecto->ver_edad($e->id_ingreso);
                $fecha_nacinino = $fecha_naci;
                $fecha_actual = date("Y/m/d/");
-               $edad = $fecha_actual - $fecha_nacinino;
+               //$edad = $fecha_actual - $fecha_nacinino;
+$diaN = substr($fecha_naci,8,9);
+     $mesN = substr($fecha_naci,5,6);
+      $anioN = substr($fecha_naci,0,3);
+
+      //actual
+      $diaA = substr($fecha_actual,8,9);
+	  $mesA = substr($fecha_actual,5,6);
+      $anioA = substr($fecha_actual,0,3);
+
+      if ($diaA<=$mesN){
+        if($diaA<$diaN){
+            $edad = ($anioA-$anioN)-1; 
+        }
+        else{
+            $edad=$anioA-$anioN;   
+        }  
+      }else{
+        $edad=$anioA-$anioN; }
                if($edad > 100) echo $e->edadcal; 
                else echo $edad;
                ?>
@@ -232,6 +257,62 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal  ventana emergente-->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                   <center> <h2 class="modal-title" id="exampleModalLongTitle">Personal que atiende al menor: </h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" id="modal-body">
+                    
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                  </div>
+                </div>
+              </div>
+            </div>  
+
+            <script>
+      
+
+    function mostrarTrab(id){
+   
+   /// alert(id);
+    $.ajax({
+        type:"POST",
+        url  : base_url+'Proyecto/ver_trabajador',
+        data:({id_tx:id}),
+        cache:false,
+        dataType:"json",
+        success:mostrarPersonas,
+        error:function(){
+            alert('No se pudieron traer los datos');
+        }
+    });
+
+    function mostrarPersonas(data){
+        $("#modal-body").empty();
+        $("#modal-body").append('<ul class="list-group list-group-flush">');
+        $(data).each(function(index,data){
+            if(data.estado=="success"){
+                $("#modal-body").append('<ul class="list-group-item list-group-item-info">'+data.v4+'</ul><ul class="list-group"><ul class="list-group-item list-group-item-light">'+data.v1+' '+data.v2+' '+data.v3+' '+'</ul></ul>');
+
+            }
+        });
+        $("#modal-body").append('</ul>');
+        $("#modal-body").trigger('create');
+        
+    }
+    
+ }
+ </script>
+
 
 
    

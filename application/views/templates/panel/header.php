@@ -122,8 +122,9 @@
             <span class="icon-bar"></span>
             <img width="50" height="30" src="<?php echo base_url();?>assets/img/dif.png"></img>
           </button>
-          <a class="navbar-brand" href="<?php echo base_url();?>index.php/proyecto/panel">Control de Expedientes de Menores</a>
+          <a class="navbar-brand" href="<?php echo base_url('index.php/proyecto');?>/index">CONTROL DE EXPEDIENTES</a>
          
+
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">

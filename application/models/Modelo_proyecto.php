@@ -248,6 +248,16 @@ class Modelo_proyecto extends CI_Model{
 		$this->db->update('privilegio', $data);
 	}
 
+    function trae_privilegios(){
+        $this->db->select('*');
+        $this->db->from('privilegio');
+        $this->db->order_by('nombre_privilegio ASC');
+
+        $query=$this->db->get();
+        return $query->result();
+
+    }
+
 	//---- Manejo de sesiones
 		function crear_sesion($data){
 		if(!empty($data)){

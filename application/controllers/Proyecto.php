@@ -38,6 +38,33 @@ class Proyecto extends CI_Controller {
 		}
 	}
     
+  public function tutoriales(){
+  
+    $data['privilegios'] = $this->Modelo_proyecto->trae_privilegios();
+
+    $this->load->view('templates/registro/header');
+		$this->load->view('templates/panel/tutoriales',$data);
+		$this->load->view('templates/registro/footer');
+  }
+
+  public function ver_trabajador(){
+    $id_expediente=$this->input->post('id_tx');
+    $json_reco=array();
+    $resultado=$this->Modelo_proyecto->ver_trabajador_atiende($id_expediente);
+    if(!is_null($resultado)){
+      foreach ($resultado as $r){
+        $json_reco[]=array(
+          'estado' => 'success',
+                                  'v1' => $r->nombres,
+                                  'v2' => $r->apellido_p,
+                                  'v3' => $r->apellido_m,
+                                  'v4' => $r->nombre_privilegio
+        );
+      }
+      
+    }
+    echo json_encode($json_reco);
+  }
 
     public function ingresar(){
 if($this->input->post()){

@@ -1,4 +1,4 @@
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+﻿<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
   <ol class="breadcrumb">
     <li><a href="<?php echo base_url();?>index.php/proyecto/expediente_medico">Expedientes</a></li>
     <li class="active">Valoración medica</li>
@@ -36,9 +36,27 @@
                 ?><br/>
                 <label>Edad: </label> 
                 <?php 
-                 $nace =  $expediente['fecha_nnino'];
+                 $fecha_naci =  $expediente['fecha_nnino'];
                  $fecha_actual = date("Y/m/d");
-                 $edad =  $fecha_actual - $nace;
+                 //$edad =  $fecha_actual - $nace;
+$diaN = substr($fecha_naci,8,9);
+     $mesN = substr($fecha_naci,5,6);
+      $anioN = substr($fecha_naci,0,3);
+
+      //actual
+      $diaA = substr($fecha_actual,8,9);
+	  $mesA = substr($fecha_actual,5,6);
+      $anioA = substr($fecha_actual,0,3);
+
+      if ($diaA<=$mesN){
+        if($diaA<$diaN){
+            $edad = ($anioA-$anioN)-1; 
+        }
+        else{
+            $edad=$anioA-$anioN;   
+        }  
+      }else{
+        $edad=$anioA-$anioN; }
                  if($edad > 100) echo $expediente['edadcal']; 
                  else echo $edad;
                 ?>

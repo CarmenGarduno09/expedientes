@@ -1,4 +1,4 @@
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+﻿<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
   <ol class="breadcrumb">
   <li><a href="<?php echo base_url();?>index.php/proyecto/panel">Principal</a></li>
   <li><a href="<?php echo base_url();?>index.php/proyecto/vista_expediente_nino">Expedientes</a></li>
@@ -146,13 +146,34 @@
                <td class="<?php echo $etiqueta;?>"><?php echo $e->genero_nino;?></td>
                <td class="<?php echo $etiqueta;?>"><center>
                <?php 
-               $fecha_naci = $this->Modelo_proyecto->ver_edad($e->id_ingreso);
-               $fecha_nacinino = $fecha_naci;
-               $fecha_actual = date("Y/m/d/");
-               $edad = $fecha_actual - $fecha_nacinino;
-               if($edad > 100) echo $e->edadcal;
-               else echo $edad;
-               ?>
+                $fecha_naci = $this->Modelo_proyecto->ver_edad($dif->id_ingreso);
+                $fecha_nacinino = $fecha_naci;
+                $fecha_actual = date("Y-m-d");
+               // $edad = $fecha_actual - $fecha_nacinino;
+
+                  
+        $diaN = substr($fecha_naci,8,9);
+     $mesN = substr($fecha_naci,5,6);
+      $anioN = substr($fecha_naci,0,3);
+
+      //actual
+      $diaA = substr($fecha_actual,8,9);
+	  $mesA = substr($fecha_actual,5,6);
+      $anioA = substr($fecha_actual,0,3);
+
+      if ($diaA<=$mesN){
+        if($diaA<$diaN){
+            $edad = ($anioA-$anioN)-1; 
+        }
+        else{
+            $edad=$anioA-$anioN;   
+        }  
+      }else{
+        $edad=$anioA-$anioN; }
+         
+                 if($edad > 100) echo $dif->edadcal; 
+                else echo $edad;
+                ?>
                </center></td>
                <td class="<?php echo $etiqueta;?>"><?php $fecha_final = $e->fecha_ingreso;
                   //var_dump($fecha_final);
