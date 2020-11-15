@@ -307,7 +307,7 @@ $diaN = substr($fecha_naci,8,9);
         });
         $("#modal-body").append('</ul>');
         $("#modal-body").trigger('create');
-        
+    
     }
     
  }
