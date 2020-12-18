@@ -33,6 +33,20 @@ class Modelo_proyecto extends CI_Model{
 		return $this->db->insert_id();
     }
     
+    //Modelo proyecto
+
+     //existe niño?
+     function existe_nino($carpeta){
+        $this->db->select('count(no_carpeta) AS total');
+		$this->db->from('ingreso_nino');
+		$this->db->where('no_carpeta',$carpeta);
+		
+
+		$query = $this->db->get();
+		return $query->row_array();
+        
+    }
+    
     //valoración jurídica.
     function devuelve_expedientes_valoracion_juridica($bus,$id_persona){
        

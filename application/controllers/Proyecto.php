@@ -3937,76 +3937,100 @@ public function elimina_seccion(){
 
          $this->upload->initialize($config);
 
-     if ( ! $this->upload->do_upload()){
-      $error = array('error' => $this->upload->display_errors());
-      $this->load->view('templates/panel/header',$data);
-      $this->load->view('templates/panel/menu',$data);
-      $this->load->view('templates/panel/formulario_ingreso_nino', $error);
-      $this->load->view('templates/panel/footer');
+     
+      //Valida niño
+      $no_car=$this->input->post('carpeta');
+      //die(var_dump($no_car));
+      $existe_nino= $this->Modelo_proyecto->existe_nino($no_car);
+      //die(var_dump($existe_nino));
+      if($existe_nino>=1){
+       // die(var_dump($existe_nino));
+       header('Location:'.base_url('index.php/proyecto/nino_registrado').'');
+          
+      }else{
 
-      }else
 
-      $file_info = $this->upload->data();                  
-      $data = array('upload_data' => $this->upload->data());   
-      $this->Modelo_proyecto->valida_sesion();
-      $data['sesion'] = $this->Modelo_proyecto->datos_sesion();
-      $data['menu'] = $this->Modelo_proyecto->datos_menu();
-      $data['centro_a'] = $this->Modelo_proyecto->devuelve_centro();
-      $this->load->library('form_validation');    
-      $this->load->view('templates/panel/header',$data);
-      $this->load->view('templates/panel/menu',$data);
-      header('Location:'.base_url('index.php/proyecto/prueba_pertenencias').'');
-      $this->load->view('templates/panel/footer');  
-      
-      if(!$file_info){
-        $file_info= array (
-          'file_name'=>"image_not_found.png",
-          'full_path' => "gif|jpg|png|pdf|jpeg|"
+        if ( ! $this->upload->do_upload()){
+          $error = array('error' => $this->upload->display_errors());
+          $this->load->view('templates/panel/header',$data);
+          $this->load->view('templates/panel/menu',$data);
+          $this->load->view('templates/panel/formulario_ingreso_nino', $error);
+          $this->load->view('templates/panel/footer');
+
+          }else
+
+          $file_info = $this->upload->data();                  
+          $data = array('upload_data' => $this->upload->data());   
+          $this->Modelo_proyecto->valida_sesion();
+          $data['sesion'] = $this->Modelo_proyecto->datos_sesion();
+          $data['menu'] = $this->Modelo_proyecto->datos_menu();
+          $data['centro_a'] = $this->Modelo_proyecto->devuelve_centro();
+          $this->load->library('form_validation');    
+          $this->load->view('templates/panel/header',$data);
+          $this->load->view('templates/panel/menu',$data);
+          header('Location:'.base_url('index.php/proyecto/prueba_pertenencias').'');
+          $this->load->view('templates/panel/footer');  
+          
+          if(!$file_info){
+            $file_info= array (
+              'file_name'=>"image_not_found.png",
+              'full_path' => "gif|jpg|png|pdf|jpeg|"
+            );
+          }
+          $data_ingreso = array(
+          'nombres_nino' => $this->input->post('nombren'),
+          'apellido_pnino' => $this->input->post('apellido_pn'),
+          'apellido_mnino' => $this->input->post('apellido_mn'),
+          'fecha_nnino' => $this->input->post('fechann'),
+          'edadcal' => $this->input->post('edadcal'),
+          'genero_nino' => $this->input->post('generon'),
+          'hora_ingreso' => $this->input->post('horan'),
+          'fecha_ingreso' => $this->input->post('fechan'),
+          'lugar_nnino' => $this->input->post('lugaron'),
+          'municipio_origen' => $this->input->post('municipioon'),
+          'no_carpeta' => $this->input->post('carpeta'),
+          'nombre_per_trae' => $this->input->post('persona_trae'),
+          'observaciones_ingreso' => $this->input->post('observaciones'),
+          'motivos_ingreso' => $this->input->post('motivos'),
+          'delito' => $this->input->post('delito'),
+          'hermanos' => $this->input->post('hermanos'),
+          'discapacidad' => $this->input->post('discapacidad'),
+          'foto_nino'=>$file_info['file_name']
         );
-      }
-      $data_ingreso = array(
-      'nombres_nino' => $this->input->post('nombren'),
-      'apellido_pnino' => $this->input->post('apellido_pn'),
-      'apellido_mnino' => $this->input->post('apellido_mn'),
-      'fecha_nnino' => $this->input->post('fechann'),
-      'edadcal' => $this->input->post('edadcal'),
-      'genero_nino' => $this->input->post('generon'),
-      'hora_ingreso' => $this->input->post('horan'),
-      'fecha_ingreso' => $this->input->post('fechan'),
-      'lugar_nnino' => $this->input->post('lugaron'),
-      'municipio_origen' => $this->input->post('municipioon'),
-      'no_carpeta' => $this->input->post('carpeta'),
-      'nombre_per_trae' => $this->input->post('persona_trae'),
-      'observaciones_ingreso' => $this->input->post('observaciones'),
-       'motivos_ingreso' => $this->input->post('motivos'),
-       'delito' => $this->input->post('delito'),
-      'hermanos' => $this->input->post('hermanos'),
-      'discapacidad' => $this->input->post('discapacidad'),
-      'foto_nino'=>$file_info['file_name']
-     );
 
-      $id_ingreso = $this->Modelo_proyecto->insertar_ingreso_nino($data_ingreso);
+          $id_ingreso = $this->Modelo_proyecto->insertar_ingreso_nino($data_ingreso);
 
 
-      $data_expediente = array(
-      'id_ingreso' => $id_ingreso,
-      'id_centro' => $this->input->post('centro'),
-      'id_trabajador' => $this->input->post('usuarioni'),
-      'id_incidencia_actual' => '1',
-      'id_estadop' => '3',
-      );
+          $data_expediente = array(
+          'id_ingreso' => $id_ingreso,
+          'id_centro' => $this->input->post('centro'),
+          'id_trabajador' => $this->input->post('usuarioni'),
+          'id_incidencia_actual' => '1',
+          'id_estadop' => '3',
+          );
 
-      $id_expediente=$this->Modelo_proyecto->insertar_expediente($data_expediente);
+          $id_expediente=$this->Modelo_proyecto->insertar_expediente($data_expediente);
 
-      $data_expeinci = array(
-      'id_incidencia' => '1',
-      'id_expediente' => $id_expediente,
-      );
+          $data_expeinci = array(
+          'id_incidencia' => '1',
+          'id_expediente' => $id_expediente,
+          );
 
-      $id_expincidencia=$this->Modelo_proyecto->insertar_expeinci($data_expeinci);
+          $id_expincidencia=$this->Modelo_proyecto->insertar_expeinci($data_expeinci);
 
-      header('Location:'.base_url('index.php/proyecto/prueba_pertenencias').'/'.$id_ingreso.'');     
+          header('Location:'.base_url('index.php/proyecto/prueba_pertenencias').'/'.$id_ingreso.'');   
+     }  
   }
+
+  public function nino_registrado(){
+    $data['sesion'] = $this->Modelo_proyecto->datos_sesion();
+    $data['menu'] = $this->Modelo_proyecto->datos_menu();
+
+    $this->load->view('templates/panel/header',$data);
+    $this->load->view('templates/panel/menu',$data);
+    $this->load->view('templates/panel/nino_registrado',$data);
+    $this->load->view('templates/panel/footer');
+   }
    
   public function ver_hermanos(){
   $this->Modelo_proyecto->valida_sesion();
