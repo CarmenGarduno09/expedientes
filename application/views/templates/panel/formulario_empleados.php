@@ -60,15 +60,20 @@
     </select>
 
      <br>
-    <label for="requis">Centro asistencial al que entra <span style="color: red" class="asterisco">*</span> </label>
-  <select name="centro" class="form-control">
+    <label for="requis">Seleccione los centros en los que labora:  <span style="color: red" class="asterisco">*</span> </label>
+    <span class="label label-warning">Seleccione con ctrl los diferentes centros.</span>
+   <br>
+     <select name="centro[]" class="form-select form-select-lg mb-3" multiple="multiple" aria-label="multiple select example">
 <?php foreach ($centro as $c) {
 ?>
-    <option value="<?=$c->id_centro;?>" class="col-sm-2 control-label"><?=$c->nombre_centro;?></option>
+    <option  value="<?=$c->id_centro;?>"><?=$c->nombre_centro;?></option>
+   
 <?php 
 }   
-?>
-    </select>
+?> </select>
+
+
+    <br>
         <div class="form-group">
        <label for="inputPassword" class="col-sm-2 control-label"></label>
        <div class="col-sm-10">
@@ -79,8 +84,10 @@
        </div>
               
        </div>
-       
+
 </div>
+
+
 
 <div class="panel panel-primary">
      <div class="panel-heading">Información de la cuenta del trabajador </div>
@@ -100,14 +107,59 @@
 <button class="btn btn-warning" name="formulario" type="submit">Guardar</button>
 
        </div></div>
-             
+            
+</div>
+</div>
+</div>
+
+<script>
+//esto es obligatorio
+$(document).ready(function(e){
+	
+});
+
+
+function agregar_casa(){
+
+  alert("estoy lista");
+  var idCen = document.getElementById("casas").value;
+  alert(idCen);
+  var base=base_url;
+  var myArray = [2];
+  var i=0;
+
+  $.ajax({
+		type       : "POST",
+		url        : base_url+'Proyecto/traer_casas', //script que insertará los datos en el servidor				
+		data:({txt_id_cen:idCen}),
+		cache:false,
+		dataType:"json",
+		success:mostrarCasas,
+		error      : function() {
+			alert('Error: Error al tarer las casas ');
+		}
+  });
+  
+  function mostrarCasas(data){
+				$("#table_casas").html('');
+				$("#table_casas").append('<ul>');
+				$(data).each(function(index,data){
+					if (data.estado==="success"){ 
+              
+              $("#table_casas").append('<div class="row"><div class="col-md-10"><li>'+data.v2+' <input type="hidden" id="'+data.v1+'" value="'+data.v2+'"></li></div><div class="col-md-2"><a class="btn btn-info btn-sm" href="javascript:void(0)" onclick="descartara('+data.v1+')">Descartar</a></div></div><br>');
+             /*miArray[i]=data.v2;
+            alert(miArray);*/
+            
+          }                
+        });
+       
+				$("#table_casas").append('</ul><br>');
+				$("#table_casas").trigger('create');
+      }
+      
 
 
       
 
-
-
-</div>
-</div>
-
-</div>
+}
+</script>

@@ -20,9 +20,27 @@
 			<input type="text" readonly="readonly"  class="form-control" name="genero" value="<?php if(set_value('genero')) echo set_value('genero'); else {if($persona) echo $persona['genero'];}?>" id="Nombres" placeholder="Género">
 			<?php echo form_error('genero');?>
  			<br>
- 			<label for="Nombres">Centro asistencial <span class="asterisco">*</span> </label>
-			<input type="text" readonly="readonly" class="form-control" name="nombre_centro" value="<?php if(set_value('nombre_centro')) echo set_value('nombre_centro'); else {if($persona) echo $persona['nombre_centro'];}?>" id="Nombres" placeholder="Nombre centro">
-			<?php echo form_error('nombre_centro');?>
+ 			<label for="Nombres">Centros asistenciales a los que pertenece. </label></br> 
+					<table class="table table-striped" id="table_centros">
+					<thead>
+					<tr>
+						<th scope="col" class="success"> Nombre del centro </th>  
+					</tr>
+					</thead>
+					<tbody>
+					
+						<?php foreach ($casas as $cas) {
+						?>
+						<tr>
+						<td readonly="readonly"> <?php echo $cas->nombre_centro;?> </td> 
+						</tr>
+						<?php 
+						}   
+						?> 
+					
+					
+					</tbody>
+					</table>
  			<br>
  			<label for="Nombres">Área <span class="asterisco">*</span> </label>
 			<input type="text" readonly="readonly" class="form-control" name="nombre_privilegio" value="<?php if(set_value('nombre_privilegio')) echo set_value('nombre_privilegio'); else {if($persona) echo $persona['nombre_privilegio'];}?>" id="Nombres" placeholder="Apellido materno">

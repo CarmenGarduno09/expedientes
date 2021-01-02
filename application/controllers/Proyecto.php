@@ -101,6 +101,79 @@ if($this->input->post()){
     }
 
   }
+
+  //Insertar casas por usuario 
+  public function inserta_casa_per(){
+    $id_persona=$this->input->post('id_per_txt');
+    $id_casa=$this->input->post('id_cas_txt');
+    //die(var_dump($id_persona));
+    $data_re=array(
+      'id_persona'=> $this->input->post('id_per_txt'),
+      'id_centro' => $this->input->post('id_cas_txt'),
+    );
+    
+    $result_plan=$this->Modelo_proyecto->insertar_persona_casa($data_re);
+    if(!is_null("Se ha insertado correctamente")){
+      echo "OK"."|".$id_persona;
+    }else{
+      echo "Error de inserción, no pude insertar";
+    }
+  
+  }
+  
+  //eliminar_casas_persona/
+
+  public function descarta_casa_usuario(){
+    $id_per_cen=$this->input->post('id_per_cen_txt');
+    $success=$this->Modelo_proyecto->descarta_casa_usuario($id_per_cen);
+    if($success==true){
+      echo "OK"."|".$id_per_cen;
+    }else{
+      echo "Error al eliminar";
+    }
+    
+  }
+
+  //traer casas por persona 
+  public function traer_casas_persona(){
+    $id_persona=$this->input->post('id_per_txt');
+    $json_reco=array();
+    
+    $resultado=$this->Modelo_proyecto->nombres_casas($id_persona);
+    if(!is_null($resultado)){
+     foreach ($resultado as $r){
+       $json_reco[]=array(
+         'estado' => 'success',
+                                'v1' => $r->id_centro,
+                                'v2' => $r->nombre_centro,
+                                'v3' => $r->id_persona_centro,
+                                'v4' => $r->id_persona
+
+       );
+     }
+     
+   }
+   echo json_encode($json_reco);
+  }
+ 
+  //Traer las casasa por empleado. 
+  public function traer_casas(){
+   $id_centro=$this->input->post('txt_id_cen');
+   $json_reco=array();
+   $resultado=$this->Modelo_proyecto->traer_casa_id($id_centro);
+   if(!is_null($resultado)){
+    foreach ($resultado as $r){
+      $json_reco[]=array(
+        'estado' => 'success',
+                                'v1' => $r->id_centro,
+                                'v2' => $r->id_persona
+      );
+    }
+    
+  }
+  echo json_encode($json_reco);
+  }
+
    //querys conetados con ajax para la valoracion juridica
    //funciones para las recomendaciones
 public function traer_recomendaciones(){
@@ -1372,13 +1445,13 @@ public function vista_equipos(){
     $this->form_validation->set_rules('nombrei','Nombre del usuario','required');
     $this->form_validation->set_rules('apellido_pi','Apellido paterno','required');
     $this->form_validation->set_rules('apellido_mi','Apellido materno','required');
-    $this->form_validation->set_rules('correoi','Email','required');
+    $this->form_validation->set_rules('correoi','Email','required|is_unique[persona.correo]',array( 'required' => 'No has proporcionado %s.', 'is_unique' => 'Este %s ya se encuentra registrado.'));
     $this->form_validation->set_rules('generoi','Genero','required');
     $this->form_validation->set_rules('fechai','Fecha de nacimiento','required');
     $this->form_validation->set_rules('usuario','Usuario','required');
-     $this->form_validation->set_rules('contrasena','Contraseña','required');
-      $this->form_validation->set_rules('areas','Area','required');
-      $this->form_validation->set_rules('centro','Centro de Asistencia','required');
+    $this->form_validation->set_rules('contrasena','Contraseña','required');
+    $this->form_validation->set_rules('areas','Area','required');
+   // $this->form_validation->set_rules('centro','Centro de Asistencia','required');
 
 
     if($this->form_validation->run()==FALSE){
@@ -1387,7 +1460,8 @@ public function vista_equipos(){
       $this->load->view('templates/panel/formulario_empleados');
       $this->load->view('templates/panel/footer');
     }else{
-
+     $centros= $this->input->post('centro');
+    
       $data_pe = array(
       'nombres' => $this->input->post('nombrei'),
       'apellido_p' => $this->input->post('apellido_pi'),
@@ -1395,13 +1469,23 @@ public function vista_equipos(){
       'correo' => $this->input->post('correoi'),
       'genero' => $this->input->post('generoi'),
       'fecha_nacimiento' => $this->input->post('fechai'),
-      'id_centro' => $this->input->post('centro'),
+     // 'id_centro' => $this->input->post('centro'),
       'id_privilegio' => $this->input->post('areas'),
       'activop' => 'Activo'
       );
-
+    
       $id_persona = $this->Modelo_proyecto->insertar_persona($data_pe);
-
+     
+      //Inserta las casas una por una
+      for ($i=0;$i<count($centros);$i++) 
+     { 
+       //Arreglo para insertar casa por cas, con su respectivo id
+       $data_cas_per=array(
+          'id_persona'=>$id_persona,
+          'id_centro'=> $centros[$i]
+       );
+        $this->Modelo_proyecto->inserta_casas_persona($data_cas_per);
+     } 
 
       $data_usuario = array(
       'usuario' => $this->input->post('correoi'),
@@ -3271,14 +3355,16 @@ public function edita_personal(){
     $this->form_validation->set_rules('generop','Género', 'required');
     $this->form_validation->set_rules('correop','Correo', 'required');
     $this->form_validation->set_rules('id_privilegio','Área', 'required');
-    $this->form_validation->set_rules('id_centro','Centro asistencial', 'required');
+    //$this->form_validation->set_rules('id_centro','Centro asistencial', 'required');
 
     if ($this->form_validation->run() == FALSE){
     $data['id_persona'] = $this->uri->segment(3);
     $data['persona'] = $this->Modelo_proyecto->datos_personal($data['id_persona']);
+    //die(var_dump($data['persona']));
+    $data['casas'] = $this->Modelo_proyecto->nombres_casas($data['id_persona']);
     $data['areas'] = $this->Modelo_proyecto->devuelve_privilegios('id_privilegio');
     $data['centrot'] = $this->Modelo_proyecto->devuelve_centrosss('id_centro');
-     
+    //die(var_dump($data['centrot'])); 
     $this->load->view('templates/panel/header',$data);
     $this->load->view('templates/panel/menu',$data);
     $this->load->view('templates/panel/formulario_edita_personal',$data);
@@ -3291,11 +3377,15 @@ public function edita_personal(){
           'genero' => $this->input->post('generop'),
           'correo' => $this->input->post('correop'),
           'id_privilegio' => $this->input->post('id_privilegio'),
-          'id_centro' => $this->input->post('id_centro'),
+          //'id_centro' => $this->input->post('id_centro'),
           );
 
+        $id_cen=$this->input->post('id_centro');
         $this->Modelo_proyecto->actualiza_personal($this->input->post('id_persona'),$data);
+       // $this->Modelo_proyecto->actualiza_casas_pertenece($this->input->post('id_persona'), $id_cen); 
         header('Location:'.base_url('index.php/proyecto/vista_empleados').'');
+
+
     }
   }else{
     header('Location:'.base_url('index.php/proyecto/vista_empleados').'');
@@ -3324,6 +3414,7 @@ public function edita_estatus_personal(){
 
     if ($this->form_validation->run() == FALSE){
     $data['id_persona'] = $this->uri->segment(3);
+    $data['casas'] = $this->Modelo_proyecto->nombres_casas($data['id_persona']);
     $data['persona'] = $this->Modelo_proyecto->datos_personal($data['id_persona']);
 
     $this->load->view('templates/panel/header',$data);

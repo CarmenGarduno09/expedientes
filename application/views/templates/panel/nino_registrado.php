@@ -7,7 +7,7 @@
   <br><br>
 
 <div class="alert alert-info" role="alert">
-<center><h2>EL no de carpeta ya esta registrado</h2></center>
+<center><h2>EL número de carpeta ya esta registrado</h2></center>
 </div>
 
 

@@ -525,6 +525,59 @@ class Modelo_proyecto extends CI_Model{
         return $query->result();
     }
 
+    //traer centros para poner a un trabajador en varios
+    function traer_casa_id($id_centro){
+        $this->db->select('*');
+        $this->db->from('centro_asistencia');
+        $this->db->where('id_centro',$id_centro);
+         $query=$this->db->get();
+        return $query->result();
+    }
+ 
+
+    //Inserta cas persona 1
+    function inserta_casas_persona($cen,$id){
+        $this->db->insert('centro_persona',$cen,$id);
+		//return $this->db->insert_id();
+    }
+
+     //Actualiza las casas hogar asignadas al trabajador. 
+    function actualiza_casas_pertenece($id_persona,$data){
+        $this->db->where('id_persona',$id_persona);
+        $this->db->update('persona',$data);
+    }
+
+    //Inserta casa persona 2
+    function insertar_persona_casa($data){
+        $this->db->insert('centro_persona',$data);
+        return $this->db->insert_id();
+    }
+
+    //Eimina asa persona 
+    function descarta_casa_usuario($data){
+        $this->db->delete('centro_persona',array('id_persona_centro' => $data));
+        return true;
+    }
+
+
+    function nombres_casas($id_per){
+      
+		$this->db->select('cenper.*, cenasis.*');
+        $this->db->from('centro_persona cenper');
+        $this->db->join('centro_asistencia as cenasis','cenper.id_centro=cenasis.id_centro');
+	    $this->db->where('id_persona',$id_per);
+
+        $query = $this->db->get();
+		return $query->result();
+    }
+
+function elimina_casa_persona($id_persona,$id_casa){
+    $this->db->delete();
+    $this->db->from('centro_persona');
+    $this->db->where('id_persona',$id_persona);
+    $this->db->where('id_centro',$id_casa);
+}
+
     function obtener_traeracuerdos_com($id_exp,$mes,$anio){
         $this->db->select('*');
         $this->db->from('recomendaciones_adulto');
@@ -1524,6 +1577,8 @@ function devuelve_centros_vista($bus, $id_centro){
      $this->db->where('id_persona',$id_persona);
      $this->db->update('persona',$data);
     }
+   
+    
 
     function actualiza_estado_procesal($id_expediente,$data){
        // echo $data['id_estadop'];
@@ -1665,9 +1720,9 @@ function get2(){
 	}
 
 	function datos_personal($data){
-		$this->db->select('ce.*,pr.*,pe.*');
+		$this->db->select('pr.*,pe.*');
 		$this->db->from('persona pe');
-		$this->db->join('centro_asistencia as ce','ce.id_centro = pe.id_centro');
+		//$this->db->join('centro_asistencia as ce','ce.id_centro = pe.id_centro');
 		$this->db->join('privilegio as pr','pr.id_privilegio = pe.id_privilegio');
 		$this->db->where('id_persona',$data);
 

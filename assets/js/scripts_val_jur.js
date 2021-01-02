@@ -20,7 +20,7 @@ function myFecha() {
 function Recomendaciones(id_expediente){
 //debugger;
 //se recibe el id en id_usuario_unic
-var base=base_url;
+var base=base_url;//guarda la base_url
 
 $("#recomendaciones_grl").css('display','block');//se cambia el estilo del panel para que aparezca en la vista
 $("#hidden_usr").empty();//se vacia el div correspondiente al id hidden_usr
