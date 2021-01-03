@@ -74,7 +74,7 @@
                 <th> <center>Integrantes</th>
                 <th> <center>No. de Equipo</th>
                 <th> <center>No. Expediente</th>
-                <!--<th> <center>Edita Asignación</th>-->
+                <th> <center>Edita Asignación</th>
                 <th> <center>No. Carpeta</th>
                 <th> <center>Centro asistencial</th>
                 <th> <center>Nombre del NNA</th>
@@ -152,7 +152,7 @@
                <input class="btn btn-warning" type="button" value="<?php echo $e->fk_num_equipo;?>">
               </center></td>
                 <td class="<?php echo $etiqueta;?>"><?php echo $e->no_expediente;?></td><!--."-".$e->id_exp;-->
-             <!-- <td class="<?php echo $etiqueta;?>"><center><a class="btn btn-success" href="<?php echo base_url('index.php/proyecto/edita_expediente1');?>/<?php echo $e->id_expediente;?>" role="button"><span class="glyphicon glyphicon-folder-open"></span></span></a></center></td> -->
+               <td class="<?php echo $etiqueta;?>"><center><a class="btn btn-success" href="<?php echo base_url('index.php/proyecto/edita_expediente1');?>/<?php echo $e->id_expediente;?>" role="button"><span class="glyphicon glyphicon-folder-open"></span><span class="glyphicon glyphicon-pencil"></span></a></center></td> 
                <td class="<?php echo $etiqueta;?>"><?php echo $e->no_carpeta;?></td>
               <td class="<?php echo $etiqueta;?>"><?php echo $e->nombre_centro;?></td>
                <!--<td class=""><?php echo $this->Modelo_proyecto->ver_centro($e->id_centro);?></td>-->

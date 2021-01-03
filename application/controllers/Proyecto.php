@@ -2510,41 +2510,56 @@ public function edita_expediente1(){
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong>Alerta </strong>','</div>');
 
-    $this->form_validation->set_rules('id_persona1','Abogado');
-    $this->form_validation->set_rules('id_persona2','Trabajo Social');
-    $this->form_validation->set_rules('id_persona3','Psicologs');
+    $this->form_validation->set_rules('id_persona1','Abogado','required');
+    $this->form_validation->set_rules('id_persona2','Trabajo Social','required');
+    $this->form_validation->set_rules('id_persona3','Psicologa','required');
 
     if ($this->form_validation->run() == FALSE){
     $data['expediente'] = $this->Modelo_proyecto->ver_expedientes($this->uri->segment(3));
+
+    //Para el trabajador social. 
+    $data['abogado'] = $this->Modelo_proyecto->devuelve_abogado_eqp($this->uri->segment(3));
+    $data['trabajo_social'] = $this->Modelo_proyecto->devuelve_trabajador_soc_eqp($this->uri->segment(3));
+    $data['psicologo'] = $this->Modelo_proyecto->devuelve_psicologo_eqp($this->uri->segment(3));
+    
+     //die(var_dump($data['abogado']));
 
     $this->load->view('templates/panel/header',$data);
     $this->load->view('templates/panel/menu',$data);
     $this->load->view('templates/panel/formulario_edita_expediente1',$data);
     $this->load->view('templates/panel/footer');
     //die;
-    }else{
-      if($this->input->post()){
-        //die(var_dump( $this->input->post('prueba')));
-        
-      $datae1 = array(
-          'id_persona' => $this->input->post('id_persona1'),
-      );
-  
-      $this->Modelo_proyecto->actualiza_expequ($this->input->post('id_persona'),$datae1);
-
-      $datae2 = array(
-          'id_persona' => $this->input->post('id_persona2'),
-      );
-      $this->Modelo_proyecto->actualiza_expequ($this->input->post('id_persona'),$datae2);
-      
-      $datae3 = array(
-          'id_persona' => $this->input->post('id_persona3'),
-      );
+    //Devuelve el trabajador social que tiende al menor 
     
-      $this->Modelo_proyecto->actualiza_expequ($this->input->post('id_persona'),$datae3);
-
-        header('Location:'.base_url('index.php/proyecto/vista_expediente_nino').'');
-     } 
+    //die(var_dump( $data['datos_equip_ts']));
+    //die(var_dump( $this->input->post()));
+    }else{
+      
+      if($this->input->post()){  
+          //Datos del equipo que conforma el caso del menor. 
+          $data['datos_equip_abg'] = $this->Modelo_proyecto->devuelve_abogado_eqp($this->uri->segment(3));
+          $data['datos_equip_ts'] = $this->Modelo_proyecto->devuelve_trabajador_soc_eqp($this->uri->segment(3));
+          $data['datos_equip_psci'] = $this->Modelo_proyecto->devuelve_psicologo_eqp($this->uri->segment(3));
+          //die(var_dump( $data['datos_equip_ts']));
+          //datos para acrualizar abogado 
+          $datae1 = array(
+              'id_persona' => $this->input->post('id_persona1'),
+          );
+          $this->Modelo_proyecto->actualiza_expequ($this->uri->segment(3),$datae1,$data['datos_equip_abg']);
+          
+          //datos para actualizar trabajo social
+          $datae2 = array(
+              'id_persona' => $this->input->post('id_persona2'),
+          );
+          $this->Modelo_proyecto->actualiza_expequ($this->uri->segment(3),$datae2,$data['datos_equip_ts']);
+          
+          //Datos para actualizar psicologo
+          $datae3 = array(
+              'id_persona' => $this->input->post('id_persona3'),
+          );
+          $this->Modelo_proyecto->actualiza_expequ($this->uri->segment(3),$datae3, $data['datos_equip_psci']);
+            header('Location:'.base_url('index.php/proyecto/vista_expediente_nino').'');
+          }
     }
   }else{
     header('Location:'.base_url('index.php/proyecto/edita_expediente1').'');

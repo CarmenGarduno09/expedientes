@@ -6,9 +6,17 @@
 		</ol>
 
         <center><h1 class="page-header">ASIGNACIÓN A EXPEDIENTE</h1></center>
-         
+          <div class="well well-sm">
+                    <h2 align="center" ><p>Nombre del NNA: <?php echo $expediente['nombres_nino'] ?> <?php echo $expediente['apellido_pnino'] ?> <?php echo $expediente['apellido_mnino'] ?></p></h2>
+                    <h3 align="center" ><p>No. Expediente:  <?php echo $expediente['no_expediente'] ?> </p></h3>
+                    <h4 align="center"><p>No. Carpeta:  <?php echo $expediente['no_carpeta']?></p></h4>
+           </div>
+     
          <div class="panel panel-primary">
      <div class="panel-heading">Información del expediente </div>
+
+    
+ 
      <div class="panel-body">
 
          <?php
@@ -23,7 +31,7 @@
   <select name="id_persona1" class="form-control">
 <?php foreach ($inte1 as $e) {
 ?>
-    <option value="<?=$e->id_persona;?>" class="col-sm-2 control-label"><?=$e->nombres;?> <?=$e->apellido_p;?> <?=$e->apellido_m;?></option>
+    <option value="<?=$e->id_persona;?>" <?php if($abogado['id_persona']==$e->id_persona){echo "selected";} ?> class="col-sm-2 control-label"><?=$e->nombres;?> <?=$e->apellido_p;?> <?=$e->apellido_m;?></option>
 <?php 
 }   
 ?>
@@ -33,7 +41,7 @@
   <select name="id_persona2" class="form-control">
 <?php foreach ($inte2 as $e) {
 ?>
-    <option value="<?=$e->id_persona;?>" class="col-sm-2 control-label"><?=$e->nombres;?> <?=$e->apellido_p;?> <?=$e->apellido_m;?></option>
+    <option value="<?=$e->id_persona;?>" <?php if($trabajo_social['id_persona']==$e->id_persona){echo "selected";} ?>  class="col-sm-2 control-label"><?=$e->nombres;?> <?=$e->apellido_p;?> <?=$e->apellido_m;?></option>
 <?php 
 }   
 ?>
@@ -43,7 +51,7 @@
   <select name="id_persona3" class="form-control">
 <?php foreach ($inte3 as $e) {
 ?>
-    <option value="<?=$e->id_persona;?>" class="col-sm-2 control-label"><?=$e->nombres;?> <?=$e->apellido_p;?> <?=$e->apellido_m;?></option>
+    <option value="<?=$e->id_persona;?>" <?php if($psicologo['id_persona']==$e->id_persona){echo "selected";} ?>  class="col-sm-2 control-label"><?=$e->nombres;?> <?=$e->apellido_p;?> <?=$e->apellido_m;?></option>
 <?php 
 }   
 ?>

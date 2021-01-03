@@ -394,8 +394,6 @@ class Modelo_proyecto extends CI_Model{
 		$this->db->select('p.*, u.*');
 		$this->db->from('usuario u');
 		$this->db->join('persona as p','p.id_persona = u.id_persona');
-
-		//$this->db->join('equipos as e','e.integrante2 = p.id_persona');
 		$this->db->where('p.id_privilegio','3');
 		$this->db->where('p.activop','Activo');
 		
@@ -605,7 +603,43 @@ function elimina_casa_persona($id_persona,$id_casa){
 		
 		$query = $this->db->get();
 		return $query->result();
-	}
+    }
+    
+    function devuelve_abogado_eqp($data){
+        $this->db->select('usr.*,eqp.*,per.*');
+        $this->db->from('usuario as usr');
+        $this->db->join('equipos as eqp','eqp.id_persona = usr.id_persona');
+        $this->db->join('persona as per','per.id_persona = usr.id_persona');
+        $this->db->where('usr.id_privilegio','3');
+        $this->db->where('eqp.fk_expediente',$data);
+
+        $query=$this->db->get();
+        return $query->row_array();
+    }
+
+    function devuelve_trabajador_soc_eqp($data){
+        $this->db->select('usr.*,eqp.*,per.*');
+        $this->db->from('usuario as usr');
+        $this->db->join('equipos as eqp','eqp.id_persona = usr.id_persona');
+        $this->db->join('persona as per','per.id_persona = usr.id_persona');
+        $this->db->where('usr.id_privilegio','2');
+        $this->db->where('eqp.fk_expediente',$data);
+
+        $query=$this->db->get();
+        return $query->row_array();
+    }
+
+    function devuelve_psicologo_eqp($data){
+        $this->db->select('usr.*,eqp.*,per.*');
+        $this->db->from('usuario as usr');
+        $this->db->join('equipos as eqp','eqp.id_persona = usr.id_persona');
+        $this->db->join('persona as per','per.id_persona = usr.id_persona');
+        $this->db->where('usr.id_privilegio','4');
+        $this->db->where('eqp.fk_expediente',$data);
+
+        $query=$this->db->get();
+        return $query->row_array();
+    }
 
 function devuelve_ninos_vista($bus, $id_ingreso){
     $data  = $this->datos_sesion();
@@ -1927,9 +1961,11 @@ function get2(){
 		$this->db->update('familiares', $data);
 	}
 
-	function actualiza_expequ($id_persona,$data){
-		$this->db->where('id_persona', $id_persona);
-		$this->db->update('equipos', $data);
+	function actualiza_expequ($id_expediente,$data1,$data2){
+        
+        $this->db->where('id_persona', $data2['id_persona']);
+        $this->db->where('fk_expediente', $id_expediente);
+        $this->db->update('equipos', $data1);
 	}
 
 	function insertar_pension($data){
