@@ -76,6 +76,7 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
+	//'username' => 'juridico',
 	'username' => 'root',
 	'password' => '',
 	//'password' => 'DIF-2020Qro',

@@ -2004,7 +2004,7 @@ public function ingresos_filtrados(){
        
     $this->form_validation->set_rules('des_ini','Descripción Inicial','required');
     $this->form_validation->set_rules('peso','Peso', 'required');
-    $this->form_validation->set_rules('talla','Talla', 'required');
+    //$this->form_validation->set_rules('talla','Talla', 'required');
     $this->form_validation->set_rules('cabeza', 'Descripción de Cabeza', 'required');
     $this->form_validation->set_rules('ojos', 'Descripción de Ojos', 'required');
     $this->form_validation->set_rules('nariz','Descripción de Nariz','required');
@@ -2030,7 +2030,7 @@ public function ingresos_filtrados(){
         $data = array(
         'des_ini' => $this->input->post('des_ini'),
         'peso' => $this->input->post('peso'),
-        'talla' => $this->input->post('talla'),
+        //'talla' => $this->input->post('talla'),
         'cabeza' => $this->input->post('cabeza'),
         'ojos' => $this->input->post('ojos'),
         'nariz' => $this->input->post('nariz'),
@@ -3072,7 +3072,7 @@ public function evaluacion_medico(){
      
   $this->form_validation->set_rules('des_ini','Descripción Inicial','required');
   $this->form_validation->set_rules('peso','Peso', 'required');
-  $this->form_validation->set_rules('talla','Talla', 'required');
+  //$this->form_validation->set_rules('talla','Talla', 'required');
   $this->form_validation->set_rules('cabeza', 'Descripción de Cabeza', 'required');
   $this->form_validation->set_rules('ojos', 'Descripción de Ojos', 'required');
   $this->form_validation->set_rules('nariz','Descripción de Nariz','required');
@@ -3101,7 +3101,7 @@ public function evaluacion_medico(){
       $data_m = array(
       'des_ini' => $this->input->post('des_ini'),
       'peso' => $this->input->post('peso'),
-      'talla' => $this->input->post('talla'),
+      //'talla' => $this->input->post('talla'),
       'cabeza' => $this->input->post('cabeza'),
       'ojos' => $this->input->post('ojos'),
       'nariz' => $this->input->post('nariz'),
@@ -3149,6 +3149,7 @@ public function edita_ingreso(){
     $this->form_validation->set_rules('nombren','Nombre del niño', 'required');
     $this->form_validation->set_rules('apellido_pn','Apellido paterno', 'required');
     $this->form_validation->set_rules('apellido_mn','Apellido materno', 'required');
+    $this->form_validation->set_rules('curp','curp', 'required');
     $this->form_validation->set_rules('fechann','Fecha de nacimiento', 'required');
     $this->form_validation->set_rules('generon','Género', 'required');
     $this->form_validation->set_rules('origen','Lugar de origen', 'required');
@@ -3176,6 +3177,7 @@ public function edita_ingreso(){
           'nombres_nino' => $this->input->post('nombren'),
           'apellido_pnino' => $this->input->post('apellido_pn'),
           'apellido_mnino' => $this->input->post('apellido_mn'),
+          'curp' => $this->input->post('curp'),
           'fecha_nnino' => $this->input->post('fechann'),
           'genero_nino' => $this->input->post('generon'),
           'lugar_nnino' => $this->input->post('origen'),
@@ -3214,6 +3216,7 @@ public function edita_ingreso2(){
     $this->form_validation->set_rules('nombren','Nombre del niño', 'required');
     $this->form_validation->set_rules('apellido_pn','Apellido paterno', 'required');
     $this->form_validation->set_rules('apellido_mn','Apellido materno', 'required');
+    $this->form_validation->set_rules('curp','curp', 'required');
     $this->form_validation->set_rules('fechann','Fecha de nacimiento', 'required');
     $this->form_validation->set_rules('generon','Género', 'required');
     $this->form_validation->set_rules('origen','Lugar de origen', 'required');
@@ -3241,6 +3244,7 @@ public function edita_ingreso2(){
           'nombres_nino' => $this->input->post('nombren'),
           'apellido_pnino' => $this->input->post('apellido_pn'),
           'apellido_mnino' => $this->input->post('apellido_mn'),
+          'curp' => $this->input->post('curp'),
           'fecha_nnino' => $this->input->post('fechann'),
           'genero_nino' => $this->input->post('generon'),
           'lugar_nnino' => $this->input->post('origen'),
@@ -4020,6 +4024,7 @@ public function elimina_seccion(){
     $this->form_validation->set_rules('nombren','Nombre del usuario','required');
     $this->form_validation->set_rules('apellido_pn','Apellido paterno','required');
     $this->form_validation->set_rules('apellido_mn','Apellido materno','required');
+    $this->form_validation->set_rules('curp','curp','required');
     $this->form_validation->set_rules('generon','Genero');
     $this->form_validation->set_rules('fechann','Fecha de nacimiento');
     $this->form_validation->set_rules('edadcal','Edad Calculada');
@@ -4089,6 +4094,7 @@ public function elimina_seccion(){
           'apellido_pnino' => $this->input->post('apellido_pn'),
           'apellido_mnino' => $this->input->post('apellido_mn'),
           'fecha_nnino' => $this->input->post('fechann'),
+          'curp' => $this->input->post('curp'),
           'edadcal' => $this->input->post('edadcal'),
           'genero_nino' => $this->input->post('generon'),
           'hora_ingreso' => $this->input->post('horan'),

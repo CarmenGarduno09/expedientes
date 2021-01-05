@@ -33,8 +33,7 @@
                   ?><br>
                   Condición inicial: <?php if($valoracion_medi['condicion']){echo $valoracion_medi['condicion'];}else{echo "La valoración no ha sido realizada";}?><br>
                   Descripción inicial de salud: <?php if($valoracion_medi['des_ini']){echo $valoracion_medi['des_ini'];}else{echo "La valoración no ha sido realizada";}?><br>
-                  Peso: <?php if($valoracion_medi['peso']){echo $valoracion_medi['peso'];}else{echo "La valoración no ha sido realizada";}?><br>
-                  Talla: <?php if($valoracion_medi['talla']){echo $valoracion_medi['talla'];}else{echo "La valoración no ha sido realizada";}?><br>
+                  Somatometría: <?php if($valoracion_medi['peso']){echo $valoracion_medi['peso'];}else{echo "La valoración no ha sido realizada";}?><br>
                   Descripción de cabeza: <?php if($valoracion_medi['cabeza']){echo $valoracion_medi['cabeza'];}else{echo "La valoración no ha sido realizada";}?><br>
                   Descripción de ojos: <?php if($valoracion_medi['ojos']){echo $valoracion_medi['ojos'];}else{echo "La valoración no ha sido realizada";}?><br>
                   Descripción de nariz: <?php if( $valoracion_medi['nariz']){echo $valoracion_medi['nariz'];}else{echo "La valoración no ha sido realizada";}?><br>

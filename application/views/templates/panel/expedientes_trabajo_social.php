@@ -75,6 +75,7 @@
                 <th> <center>No. Carpeta</th>
                 <th> <center>Centro asistencial</th>
                 <th> <center>Nombre del NNA</th>
+                <th> <center>CURP</th>
                 <th> <center>Fecha nacimiento</th>
                 <th><center>Edad</center>
                 <th> <center>Género</th>
@@ -98,6 +99,7 @@
               <td><?php echo $e->nombre_centro;?></td>
                 <!--<td class="<?php echo $etiqueta;?>"><?php echo $this->Modelo_proyecto->ver_centro($e->id_centro);?></td>-->
                 <td><?php echo $e->nombres_nino;?> <?php echo $e->apellido_pnino;?> <?php echo $e->apellido_mnino;?></td>
+                <td><?php echo $e->curp;?></td>
                 <td><?php $date_of_birth = $e->fecha_nnino;
                 //var_dump($date_of_birth);
                 $dia = substr($date_of_birth,8,2);
