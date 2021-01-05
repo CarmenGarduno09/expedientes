@@ -86,11 +86,11 @@
         <?php echo form_error('motivos_egreso');?>
       <br>
         <label for="Nombres">Coordinación encargada del tramite<span style="color: red" class="asterisco">*</span></label>
-        <input  type="text" name="autoriza" value="<?php echo set_value('autoriza');?>" id="Nombres" class="form-control" placeholder="Nombre de quién autoriza">
+        <input  type="text" name="autoriza" value="<?php echo set_value('autoriza');?>" id="Nombres" class="form-control" placeholder="Nombre de la coordinación">
         <?php echo form_error('autoriza');?>
      <br>
      <label for="Nombres">Nombre de la persona o parentesco con la que se entrega <span style="color: red" class="asterisco">*</span></label>
-        <input  type="text" name="responsable" value="<?php echo set_value('responsable');?>" id="Nombres" class="form-control" placeholder="Nombre de quién responsable">
+        <input  type="text" name="responsable" value="<?php echo set_value('responsable');?>" id="Nombres" class="form-control" placeholder="Nombre de la persona o parentesco">
         <?php echo form_error('responsable');?>
          
 

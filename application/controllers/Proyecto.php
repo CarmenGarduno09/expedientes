@@ -4044,16 +4044,17 @@ public function elimina_seccion(){
          $this->upload->initialize($config);
 
      
-      //Valida niño
-      $no_car=$this->input->post('carpeta');
+      //Valida no de carpeta del menor 
+     /* $no_car=$this->input->post('carpeta');
       //die(var_dump($no_car));
       $existe_nino= $this->Modelo_proyecto->existe_nino($no_car);
-      //die(var_dump($existe_nino));
-      if($existe_nino>=1){
-       // die(var_dump($existe_nino));
+      $var = intval($existe_nino['total']);
+      die(var_dump($existe_nino));
+      if($var>=1){
+        //die(var_dump($existe_nino));
        header('Location:'.base_url('index.php/proyecto/nino_registrado').'');
           
-      }else{
+      }else{*/
 
 
         if ( ! $this->upload->do_upload()){
@@ -4125,7 +4126,7 @@ public function elimina_seccion(){
           $id_expincidencia=$this->Modelo_proyecto->insertar_expeinci($data_expeinci);
 
           header('Location:'.base_url('index.php/proyecto/prueba_pertenencias').'/'.$id_ingreso.'');   
-     }  
+    /* } */ //else de válida menor 
   }
 
   public function nino_registrado(){

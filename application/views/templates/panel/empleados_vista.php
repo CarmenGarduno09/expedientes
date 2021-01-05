@@ -113,10 +113,11 @@
                 <th>Género</th>
                 <th>Correo</th>
                 <th>Área</th>
-                <th>Centro de Asistencia</th>
+                <th>Centros de Asistencia</th>
                 <th>Estatus</th>
                 <th></th>
                 <th>Edita Datos</th>
+               
                 </center>
               </tr>
             </thead>
@@ -138,41 +139,14 @@
                 <td class="<?php echo $etiqueta;?>"><?php echo $res->genero;?></td>
                 <td class="<?php echo $etiqueta;?>"><?php echo $res->correo;?></td>
                 <td class="<?php echo $etiqueta;?>"><?php echo $res->nombre_privilegio;?></td>
-                <td class="<?php echo $etiqueta;?>"><?php echo $res->nombre_centro;?></td>
+                <td class="<?php echo $etiqueta;?>"> <a class="btn btn-info" type="button" onclick="mostrarcentros(<?php echo $res->id_persona;?>)" data-toggle="modal" data-target="#exampleModalCenter">Ver centros:  <span  class="glyphicon glyphicon-eye-open" ></a></td>
+            
                 <td class="<?php echo $etiqueta;?>"><?php echo $res->activop;?></td>
                 <td class="<?php echo $etiqueta;?>"><a href="<?php echo base_url('index.php/proyecto/edita_estatus_personal');?>/<?php echo $res->id_persona;?>" role="button"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                <!--<td class="<?php echo $etiqueta;?>"><a data-toggle="modal" data-target="#popup<?php echo $res->id_persona;?>"><span class="glyphicon glyphicon-pencil"></span></a>
-  
-  <div class="modal  fade" id="popup<?php echo $res->id_persona;?>" tabindex="-1" role="dialog" aria-labelledby="label" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">x</span><span class="sr-only">Cerrar</span></button>
-          <h3 style="text-align: center" class="modal-title" id="label"><strong>CAMBIO DE ESTATUS</strong></h3>
-        </div>
-        <div class="modal-body">
-          <p style="text-align: center">
-          <center>  
-            <?php 
-             foreach ($estatus as $e) {
-            ?>
-            <div>
-            <input type="radio" class="form-control.radio" id="id_estatus" name="estatus" value="<?=$e->id_estatus;?>" > <?=$e->nombre_estatus;?>
-            </div>
-            <?php }?>
-            </center>
-            <br>
-            <center><a class="btn btn-success" class="btn btn-warning" href="<?php echo base_url('index.php/proyecto/cambio_estatust');?>/<?php echo $res->id_persona;?>" >Cambiar</a></center>
-
-          </p>
-        </div>
-      </div>
-    </div>
-  </div></td>-->
-               
+              
+        
         <td class="<?php echo $etiqueta;?>"><a class="btn btn-success"  href="<?php echo base_url('index.php/proyecto/edita_personal');?>/<?php echo $res->id_persona;?>" role="button"><span class="glyphicon glyphicon-pencil"></span> Editar</a></td>
-            
-              </tr>
+                 </tr>
               <?php 
               }
               ?>
@@ -184,5 +158,59 @@
       </div>
     </div>
 
+ <!-- Modal  ventana emergente-->
+ <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                   <center> <h2 class="modal-title" id="exampleModalLongTitle">Centros asistenciales en los que trabaja: </h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" id="modal-body">
+                    
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                  </div>
+                </div>
+              </div>
+            </div> 
 
+<script>
+function mostrarcentros(id_persona){
+
+  $.ajax({
+				type       : "POST",
+                url  : base_url+'Proyecto/traer_casas_persona',				
+				data:({id_per_txt:id_persona}),
+				cache:false,
+				dataType:"json",
+				success:mostrarCasas,
+				error      : function() {
+					alert('Error: Error al traer los datos de las casas por persona, query');
+				}
+      });
+      function mostrarCasas(data){
+       
+        
+         $("#modal-body").empty();
+        $("#modal-body").append('<ul class="list-group list-group-flush">');
+        $(data).each(function(index,data){
+     
+            if(data.estado=="success"){
+             
+                $("#modal-body").append('<ul class="list-group-item list-group-item-success">Nombre del centro: </ul><ul class="list-group"><ul class="list-group-item list-group-item-light">'+data.v2+'</ul></ul>');
+              
+            }
+         
+        });
+        $("#modal-body").append('</ul>');
+        $("#modal-body").trigger('create');
+    
+    }
+}
+
+</script>
    
