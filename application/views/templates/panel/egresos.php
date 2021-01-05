@@ -125,7 +125,7 @@
                 $fecha_actual = date("Y/m/d/");
                 $edad = $fecha_actual - $fecha_nacinino;
                 if($edad > 100) echo $e->edadcal; 
-                else echo $edad;
+                else echo $edad; 
                 ?>
                 </td>
                 <!--<td><?php echo $e->genero_nino;?></td>-->

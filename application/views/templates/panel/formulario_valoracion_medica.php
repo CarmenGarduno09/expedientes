@@ -117,13 +117,9 @@ $diaN = substr($fecha_naci,8,9);
       <?php echo form_error('des_ini');?>
       <br>
 
-         <label for="peso">Peso: <span style="color: red" class="asterisco">*</span> </label>
-      <input type="text" class="form-control" name="peso" value="<?php echo set_value('peso');?>" id="peso" placeholder="Ingrese su peso">
+         <label for="peso">Somatometría de ingreso: <span style="color: red" class="asterisco">*</span> </label>
+      <input type="text" class="form-control" name="peso" value="<?php echo set_value('peso');?>" id="peso" placeholder="Ingrese la somatrometía de ingreso">
       <?php echo form_error('peso');?>
-      <br>
-        <label for="talla">Talla: <span style="color: red" class="asterisco">*</span> </label>
-      <input type="text" class="form-control" name="talla" value="<?php echo set_value('talla');?>" id="talla" placeholder="Asigne la talla">
-      <?php echo form_error('talla');?>
       <br>
       <label for="cabeza">Cabeza: <span style="color: red" class="asterisco">*</span> </label>
       <input type="text" class="form-control" name="cabeza" value="<?php echo set_value('cabeza');?>" id="cabeza" placeholder="Descripción de la cabeza">

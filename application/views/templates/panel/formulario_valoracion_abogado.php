@@ -6,7 +6,7 @@
         <li class="active">Valoración</li>
         </ol>
 <center><h1>ALTA DE VALORACIÓN JURÍDICA</h1></center>
-        
+         
 <div class="panel panel-primary">
   <div class="panel-heading">Información del NNA</div>
     <div class="panel-body">
@@ -37,11 +37,29 @@
                 ?><br/>
                 <label>Edad: </label>  
                 <?php 
-                 $nace =  $expediente['fecha_nnino'];
+                 $fecha_naci =  $expediente['fecha_nnino'];
                  $fecha_actual = date("Y/m/d");
-                 $edad =  $fecha_actual - $nace;
-                 if($edad > 100) echo $expediente['edadcal'];
-                 else echo $edad;
+                // $edad =  $fecha_actual - $nace;
+                        $diaN = substr($fecha_naci,8,9);
+                    $mesN = substr($fecha_naci,5,6);
+                    $anioN = substr($fecha_naci,0,3);
+
+                    //actual
+                    $diaA = substr($fecha_actual,8,9);
+                    $mesA = substr($fecha_actual,5,6);
+                    $anioA = substr($fecha_actual,0,3);
+
+                    if ($diaA<=$mesN){
+                        if($diaA<$diaN){
+                            $edad = ($anioA-$anioN)-1; 
+                        }
+                        else{
+                            $edad=$anioA-$anioN;   
+                        }  
+                    }else{
+                        $edad=$anioA-$anioN; }
+                                if($edad > 100) echo $expediente['edadcal']; 
+                                else echo $edad;
                 ?>
                 <br/>
                 <label>Género: </label>  
@@ -584,7 +602,7 @@
          
           <!--Botón que habilita Panel  recomendaciones -->
         <center>
-        <a class='btn btn-info btn-sm' href='javascript:void(0)' onclick="Recomendaciones('<?php echo $expediente['id_expediente']?>')"><i class='fas fa-pencil-alt'></i>Agregar acuerdo de integrarias</a>
+        <a class='btn btn-info btn-sm' href='javascript:void(0)' onclick="Recomendaciones('<?php echo $expediente['id_expediente']?>')"><i class='fas fa-pencil-alt'></i>Agregar acuerdo de interarias</a>
          <br>
          </center>
           <!-- Panel  recomendaciones -->

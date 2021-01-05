@@ -77,6 +77,7 @@
               <tr bgcolor="#F9E79F" align="center">
                   <center>
                 <th>Nombre del NNA</th>
+                <th>CURP</th>
                 <th>Edad</th>
                 <th>Capacidad diferente</th>
                 <th>Municipio Origen</th>
@@ -102,6 +103,7 @@
               ?>
               <tr bgcolor="#FEF5E7">
                 <td><?php echo $dif->nombres_nino;?> <?php echo $dif->apellido_pnino;?> <?php echo $dif->apellido_mnino;?></td>
+                <td><?php echo $dif->curp;?></td>
                 <td><center>
                 <?php 
                 $fecha_naci = $this->Modelo_proyecto->ver_edad($dif->id_ingreso);

@@ -60,11 +60,29 @@
                 <td><center>
                 <?php 
                 $fecha_naci = $this->Modelo_proyecto->ver_edad($ec->id_ingreso);
-                $fecha_nacinino = $fecha_naci;
-                $fecha_actual = date("Y/m/d/");
-                $edad = $fecha_actual - $fecha_nacinino;
-                if($edad > 100) echo $ec->edadcal; 
-                else echo $edad;
+              
+                $fecha_actual = date("Y/m/d");
+               // $edad =  $fecha_actual - $nace;
+                       $diaN = substr($fecha_naci,8,9);
+                   $mesN = substr($fecha_naci,5,6);
+                   $anioN = substr($fecha_naci,0,3);
+
+                   //actual
+                   $diaA = substr($fecha_actual,8,9);
+                   $mesA = substr($fecha_actual,5,6);
+                   $anioA = substr($fecha_actual,0,3);
+
+                   if ($diaA<=$mesN){
+                       if($diaA<$diaN){
+                           $edad = ($anioA-$anioN)-1; 
+                       }
+                       else{
+                           $edad=$anioA-$anioN;   
+                       }  
+                   }else{
+                       $edad=$anioA-$anioN; }
+                               if($edad > 100) echo $expediente['edadcal']; 
+                               else echo $edad;
                 ?>
                 </center></td>
                 <td><?php echo $ec->genero_nino;?></td>

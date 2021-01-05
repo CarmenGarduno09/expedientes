@@ -26,6 +26,10 @@
  			<label for="Nombres">Apellido materno <span class="asterisco">*</span> </label>
 			<input type="text" class="form-control" name="apellido_mn" value="<?php if(set_value('apellido_mn')) echo set_value('apellido_mn'); else {if($ingreso) echo $ingreso['apellido_mnino'];}?>" id="Nombres" placeholder="Apellido materno">
 			<?php echo form_error('apellido_mn');?>
+			 </br>
+ 			<label for="Nombres">CURP <span class="asterisco">*</span> </label>
+			<input type="text" class="form-control" name="curp" value="<?php if(set_value('curp')) echo set_value('curp'); else {if($ingreso) echo $ingreso['curp'];}?>" id="Nombres" placeholder="Clave Única de Registro de Población">
+			<?php echo form_error('curp');?>
  			</br>
  			<label for="Nombres">Fecha de nacimiento <span class="asterisco">*</span> </label>
 			<input type="text" class="form-control" name="fechann" value="<?php if(set_value('fechann')) echo set_value('fechann'); else {if($ingreso) echo $ingreso['fecha_nnino'];}?>" id="Nombres" placeholder="Fecha de nacimiento">

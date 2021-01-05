@@ -79,6 +79,7 @@
                   <center>
                 <th><center>Foto</th>
                 <th><center>Nombre del NNA</th>
+                <th><center>CURP</th>
                 <th><center>Genéro</th>
                 <th><center>Edad</th>
                 <th><center>Lugar de Nacimiento</th>
@@ -102,6 +103,7 @@
 
                 
                 <td><?php echo $dif->nombres_nino;?> <?php echo $dif->apellido_pnino;?> <?php echo $dif->apellido_mnino;?></td>
+                <td><?php echo $dif->curp;?></td>
                 <td><?php echo $dif->genero_nino;?></td>
                 <td><center>
                 <?php 

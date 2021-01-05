@@ -82,6 +82,10 @@
         <input  type="text" name="apellido_mn" value="<?php echo set_value('apellido_mn');?>" id="Apellido_mn" class="form-control" placeholder="Apellido materno">
          <?php echo form_error('apellido_mn');?>
          <br>
+          <label for="curp" >CURP <span style="color: red" class="asterisco">*</span></label>
+        <input  type="text" name="curp" value="<?php echo set_value('curp');?>" id="curp" class="form-control" placeholder="Clave Única de Registro de Población">
+         <?php echo form_error('curp');?>
+         <br>
         <label for="generon">Género <span style="color: red" class="asterisco">*</span></label>
           <div class="radio">
             <label><input type="radio" name="generon" value="Masculino" <?php if(set_value('generon')=='masculino') echo "checked";?>>Masculino</label>
