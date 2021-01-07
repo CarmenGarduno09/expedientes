@@ -152,7 +152,7 @@ $diaN = substr($fecha_naci,8,9);
                 <td><center><a class="btn btn-info"   href="<?php echo base_url('index.php/proyecto/edita_ingreso');?>/<?php echo $dif->id_ingreso;?>" role="button"><span class="glyphicon glyphicon-pencil"></span> <span class="glyphicon glyphicon-user"></span></a></center></td>
                 <td><center><a class="btn btn-success"  href="<?php echo base_url('index.php/proyecto/edita_foto');?>/<?php echo $dif->id_expediente;?>/<?php echo $dif->id_ingreso;?>" role="button"><span class="glyphicon glyphicon-pencil"></span> <span class="glyphicon glyphicon-picture"></span></a></center></td>
                 
-                <td><center><a class="btn btn-danger" href="<?php echo base_url('index.php/proyecto/elimina_nna');?>/<?php echo $dif->id_ingreso;?>/<?php echo $dif->id_expediente;?>" role="button">Eliminar<span class="glyphicon glyphicon-trash"></span> <span class="glyphicon glyphicon-user"></span></a></center></td>
+                <td><center><a class="btn btn-danger" href="<?php echo base_url('index.php/proyecto/elimina_nna');?>/<?php echo $dif->id_ingreso;?>/<?php echo $dif->id_expediente;?>/<?php echo $sesion['id_privilegio'];?>" role="button">Eliminar<span class="glyphicon glyphicon-trash"></span> <span class="glyphicon glyphicon-user"></span></a></center></td>
         
          </tr>
               <?php 

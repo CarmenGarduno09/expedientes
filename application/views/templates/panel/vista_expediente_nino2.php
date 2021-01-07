@@ -83,6 +83,7 @@
                 <th> <center>Delito</th>
                 <th> <center>Motivos de ingreso</th>
                 <th> <center>Estatus</th>
+                <th> <center>Eliminar NNA</th>
                 
                 </center>
               </tr>
@@ -154,6 +155,7 @@
                 <td><?php echo $e->delito;?></td>
                 <td><?php echo $e->motivos_ingreso;?></td>
                 <td><?php echo $e->nombre_incidencia;?></td>
+                <td><center><a class="btn btn-danger" href="<?php echo base_url('index.php/proyecto/elimina_nna');?>/<?php echo $e->id_ingreso;?>/<?php echo $e->id_expediente;?>/<?php echo $sesion['id_privilegio'];?>" role="button">Eliminar<span class="glyphicon glyphicon-trash"></span> <span class="glyphicon glyphicon-user"></span></a></center></td> 
               </tr>
               <?php 
               }
