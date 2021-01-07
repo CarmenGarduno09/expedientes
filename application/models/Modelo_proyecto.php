@@ -38,13 +38,32 @@ class Modelo_proyecto extends CI_Model{
      //existe niño?
      function existe_nino($carpeta){
         $this->db->select('count(no_carpeta) AS total');
-		$this->db->from('ingreso_nino');
+        $this->db->from('ingreso_nino');
+        
 		$this->db->where('no_carpeta',$carpeta);
 		
 
 		$query = $this->db->get();
 		return $query->result();
         
+    }
+
+    //Funciones para eliminar nna
+    function elimina1($id){
+        $this->db->delete('ingreso_nino',array('id_ingreso' => $id));
+        return true;
+
+    }
+
+    function elimina2($id){
+        $this->db->delete('expediente_nino',array('id_expediente' => $id));
+        return true;
+
+    }
+    function elimina3($id){
+        $this->db->delete('expediente_incidencia',array('id_expediente' => $id));
+        return true;
+
     }
     
     //valoración jurídica.
@@ -2047,34 +2066,16 @@ function get2(){
 
     function devuelve_expedientes_incidencias($bus,$id_expediente){
     $data=$this->datos_sesion();
-    if (empty($bus)) {
+ 
     $this->db->select('expediente_nino.*, ingreso_nino.*, centro_asistencia.*, incidencias.*, estado_penal.*');
     $this->db->from('expediente_nino');
     $this->db->join('ingreso_nino','ingreso_nino.id_ingreso=expediente_nino.id_ingreso','left');
     $this->db->join('centro_asistencia','centro_asistencia.id_centro=expediente_nino.id_centro','left');
     $this->db->join('incidencias','incidencias.id_incidencia=expediente_nino.id_incidencia_actual','left');
     $this->db->join('estado_penal','estado_penal.id_estadop=expediente_nino.id_estadop','left');
-    //$this->db->where('incidencias.id_incidencia','id_incidencia_actual');
+    $this->db->where('incidencias.id_incidencia','1');
     
-    }else{
-        $this->db->select('expediente_nino.*, ingreso_nino.*, centro_asistencia.*, incidencias.*, estado_penal.*');
-        $this->db->from('expediente_nino');
-        $this->db->join('ingreso_nino','ingreso_nino.id_ingreso=expediente_nino.id_ingreso','left');
-        $this->db->join('centro_asistencia','centro_asistencia.id_centro=expediente_nino.id_centro','left');
-        $this->db->join('incidencias','incidencias.id_incidencia=expediente_nino.id_incidencia_actual','left');
-        $this->db->join('estado_penal','estado_penal.id_estadop=expediente_nino.id_estadop','left');
 
-        $this->db->like('no_expediente',$bus);
-        $this->db->or_like('no_carpeta',$bus);
-        $this->db->or_like('nombre_centro',$bus);
-        $this->db->or_like('nombres_nino',$bus);
-        $this->db->or_like('fecha_nnino',$bus);
-        $this->db->or_like('genero_nino',$bus);
-        $this->db->or_like('fecha_ingreso',$bus);
-        $this->db->or_like('motivos_ingreso',$bus);
-        $this->db->or_like('nombre_estado',$bus);
-        $this->db->or_like('nombre_incidencia',$bus);
-    }
     $query = $this->db->get();
     return $query->result();
     }
