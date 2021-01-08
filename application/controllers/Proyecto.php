@@ -1641,9 +1641,9 @@ public function vista_empleados(){
 
           }
       $data['expedientes'] = $this->Modelo_proyecto->devuelve_expedientes_vistabase($buscar, $this->session->id_expediente);
-     
+      
       $data['trabajadores'] = $this->Modelo_proyecto->devuelve_trabajadores($buscar,$this->session->id_expediente,$data['expedientes']);
-
+    
       $this->load->view('templates/panel/header',$data);
       $this->load->view('templates/panel/menu',$data);
       $this->load->view('templates/panel/vista_expediente_NNA',$data);
@@ -1701,7 +1701,7 @@ public function vista_empleados(){
 
           }
       $data['expedientes'] = $this->Modelo_proyecto->devuelve_expedientes_vista2($buscar, $this->session->id_expediente);
-
+      // die(var_dump($data['expedientes'] ));
       $this->load->view('templates/panel/header',$data);
       $this->load->view('templates/panel/menu',$data);
       $this->load->view('templates/panel/vista_expediente_nino2',$data);
@@ -4133,6 +4133,24 @@ public function elimina_seccion(){
 
           header('Location:'.base_url('index.php/proyecto/prueba_pertenencias').'/'.$id_ingreso.'');   
     /* } */ //else de válida menor 
+  }
+  public function elimina_nna(){
+     $id_ing = $this->uri->segment(3); 
+     $id_exp = $this->uri->segment(4);
+     $id_priv=$this->uri->segment(5);
+     //die(var_dump($id_priv));
+     $result=$this->Modelo_proyecto->elimina1($id_ing);
+     $result=$this->Modelo_proyecto->elimina2($id_exp);
+     $result=$this->Modelo_proyecto->elimina3($id_exp);
+     if($id_priv=="2"){
+      header('Location:'.base_url('index.php/proyecto/vista_ninos_ts').'/');
+     }else{
+       if($id_priv=="1"){
+         header('Location:'.base_url('index.php/proyecto/vista_expediente_nino2').'/');
+       }
+      
+     }
+     
   }
 
   public function nino_registrado(){

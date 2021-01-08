@@ -91,6 +91,7 @@
                 <th><center>Centro de Asistencia</th>
                 <th><center>Editar Datos</th>
                 <th><center>Editar Foto</th>
+                <th><center>Eliminar NNA</th>
                 </center>
               </tr>
             </thead>
@@ -150,10 +151,11 @@ $diaN = substr($fecha_naci,8,9);
                 <td><?php echo $dif->nombre_centro;?></td>
 
         
-                <td><center><a class="btn btn-info"  href="<?php echo base_url('index.php/proyecto/edita_ingreso');?>/<?php echo $dif->id_ingreso;?>" role="button"><span class="glyphicon glyphicon-pencil"></span> <span class="glyphicon glyphicon-user"></span></a></center></td>
+                <td><center><a class="btn btn-info"   href="<?php echo base_url('index.php/proyecto/edita_ingreso');?>/<?php echo $dif->id_ingreso;?>" role="button"><span class="glyphicon glyphicon-pencil"></span> <span class="glyphicon glyphicon-user"></span></a></center></td>
                 <td><center><a class="btn btn-success"  href="<?php echo base_url('index.php/proyecto/edita_foto');?>/<?php echo $dif->id_expediente;?>/<?php echo $dif->id_ingreso;?>" role="button"><span class="glyphicon glyphicon-pencil"></span> <span class="glyphicon glyphicon-picture"></span></a></center></td>
                 
-                <!--<td><center><a class="btn btn-info"  href="<?php echo base_url('index.php/proyecto/edita_ingreso');?>/<?php echo $dif->id_ingreso;?>" role="button"><span class="glyphicon glyphicon-pencil"></span> <span class="glyphicon glyphicon-user"></span></a></center></td>-->
+                <td><center><a class="btn btn-danger" href="<?php echo base_url('index.php/proyecto/elimina_nna');?>/<?php echo $dif->id_ingreso;?>/<?php echo $dif->id_expediente;?>/<?php echo $sesion['id_privilegio'];?>" role="button">Eliminar<span class="glyphicon glyphicon-trash"></span> <span class="glyphicon glyphicon-user"></span></a></center></td>
+        
          </tr>
               <?php 
               }
@@ -161,12 +163,9 @@ $diaN = substr($fecha_naci,8,9);
             </tbody>
           </table>
 
-<!--<input type="hidden" name="usuario" class="form-control" value="<?php echo $sesion['id_persona'];?>">-->
-
 
         </div>
       </div>
     </div>
 
 
-   
